@@ -1,3 +1,26 @@
+/**
+ * @description Sends the request to the service worker in order to perform it when the device is back online.
+ * It needs an extra handling in the service worker side, in order to cache the request with the 'bgSync: 1' header.
+ *
+ * @param bgSync When the bgSync is optimistic, the resolve cancels the request, the reject submits the request.
+ *  When the bgSync is pessimistic, the reject cancels the request, the resolve submits the request.
+ *
+ * @example
+ * const request = withBgSync(basicRequest);
+ *
+ * const promise = request('url.test', {bgSync: Promise.resolve(), bgSyncOptimistic: false});
+ * // the request will be performed with the device is back online.
+ *
+ * const promise = request('url.test', {bgSync: Promise.reject()});
+ * // the request will be performed with the device is back online.
+ *
+ * const promise = request('url.test', {bgSync: Promise.reject(), bgSyncOptimistic: false});
+ * // cancels the bgSync process
+ *
+ * const promise = request('url.test', {bgSync: Promise.resolve()});
+ * // cancels the bgSync process
+ */
+
 const noop = () => {};
 
 const removeBgSyncedRequest = (url, method) =>

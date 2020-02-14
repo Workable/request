@@ -1,3 +1,16 @@
+/**
+ * @description Triggers callbacks according to the http response rules.
+ * @example
+ * XHRHandler.init(response).then(handler =>
+ *    handler
+ *      .when(400, () => 'doSomething')
+ *      .whenNot(401, () => 'doSomething')
+ *      .otherwise(() => 'doSomething')
+ *      .always(() => 'doSomething')
+ *      .handle();
+ * );
+ */
+
 const identity = i => i;
 
 export const handle404 = (callback = identity) => () => callback("error.404");
