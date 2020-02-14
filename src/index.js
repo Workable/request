@@ -1,10 +1,5 @@
-import {
-  withCache,
-  withAbort,
-  withAuthClient,
-  withBgSync
-} from "./middlewares";
+import { withCache, withAbort, withBgSync } from "./middlewares";
 import request from "./request";
 
-export { request, withCache, withAbort, withAuthClient, withBgSync };
-export default withAuthClient(withCache(withBgSync(withAbort(request))));
+export { request, withCache, withAbort, withBgSync };
+export default withCache(withBgSync(withAbort(request)));
