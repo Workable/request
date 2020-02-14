@@ -1,7 +1,12 @@
 import makeIDB from "@workablehr/idb";
-import baseRequest, { withCache, withBgSync, withAbort } from "./index";
+import baseRequest, {
+  withCache,
+  withBgSync,
+  withAbort,
+  withShortcuts
+} from "./index";
 
-const request = withCache(withBgSync(withAbort(baseRequest)));
+const request = withShortcuts(withCache(withBgSync(withAbort(baseRequest))));
 
 jest.mock("@workablehr/idb", () => jest.fn(() => ({ get: jest.fn() })));
 
@@ -60,6 +65,51 @@ it("aborts a request", async () => {
   expect(responseSpy).not.toBeCalled();
   expect(abortSpy).toBeCalled();
   clearMock();
+});
+
+describe("shortcuts", () => {
+  const expectPayload = method =>
+    expect(fetch.mock.calls[0][1]).toEqual(
+      expect.objectContaining({
+        body: '{"attr":"attrValue"}',
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        method
+      })
+    );
+
+  it("creates post request", async () => {
+    const clearMock = mockResponseOnce();
+    const response = await request.post("mockUrl", { attr: "attrValue" });
+    expect(response).toBe("12345");
+    expectPayload("POST");
+    clearMock();
+  });
+
+  it("creates put request", async () => {
+    const clearMock = mockResponseOnce();
+    const response = await request.put("mockUrl", { attr: "attrValue" });
+    expect(response).toBe("12345");
+    expectPayload("PUT");
+    clearMock();
+  });
+
+  it("creates patch request", async () => {
+    const clearMock = mockResponseOnce();
+    const response = await request.patch("mockUrl", { attr: "attrValue" });
+    expect(response).toBe("12345");
+    expectPayload("PATCH");
+    clearMock();
+  });
+
+  it("creates delete request", async () => {
+    const clearMock = mockResponseOnce();
+    const response = await request.del("mockUrl");
+    expect(response).toBe("12345");
+    clearMock();
+  });
 });
 
 describe("cache", () => {
