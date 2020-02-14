@@ -1,9 +1,7 @@
 import makeIDB from "@workablehr/idb";
-import request, {
-  withBgSync,
-  withCache,
-  request as baseRequest
-} from "./index";
+import baseRequest, { withCache, withBgSync, withAbort } from "./index";
+
+const request = withCache(withBgSync(withAbort(baseRequest)));
 
 jest.mock("@workablehr/idb", () => jest.fn(() => ({ get: jest.fn() })));
 
