@@ -8,13 +8,13 @@ Request is based on middlewares in order to extend the default fetch functionali
 Using npm:
 
 ```
-$ npm install axios
+$ npm install @workablehr/request
 ```
 
 ## Basic usage
 
 ```javascript
-import request from "@workable/request";
+import request from "@workablehr/request";
 
 const promise = request("resource.com"); // submits a get request to 'resource.com'
 
@@ -61,7 +61,7 @@ Middleware is an easy way to extend the basic functionality of the request.
 For example, if you would like to create a request that can be aborted, you could merely to:
 
 ```javascript
-import basicRequest, { withAbort } from "@workable/request";
+import basicRequest, { withAbort } from "@workablehr/request";
 const request = withAbort(basicRequest);
 const promise = request("resource.com", {
   method: "POST",
@@ -73,7 +73,7 @@ promise.abort();
 Or if you would like to use the shortcut request.post(), you could:
 
 ```javascript
-import basicRequest, { withAbort, withShortcut } from "@workable/request";
+import basicRequest, { withAbort, withShortcut } from "@workablehr/request";
 const request = withShortcut(withAbort(basicRequest));
 const promise = request.post("resource.com", { data });
 promise.abort();
@@ -104,7 +104,7 @@ Sends the request to the service worker in order to perform it when the device i
 A middleware is nothing more than a simple function that accepts request the method and returns the extended request.
 
 ```javascript
-import basicRequest from "@workable/request";
+import basicRequest from "@workablehr/request";
 
 const withRequestLogger = request => {
   return (url, params) => {
