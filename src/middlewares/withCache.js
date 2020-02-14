@@ -1,6 +1,6 @@
 import makeIDB from "@workablehr/idb";
 
-const makeKey = key => `workable.${key}`;
+const makeKey = (cacheStore, key) => `${cacheStore}.${key}`;
 
 export default request => (
   url,
@@ -9,7 +9,7 @@ export default request => (
   const fetch = () => request(url, params);
 
   if (cache && cacheStore)
-    return makeIDB(cacheStore).get(makeKey(cacheKey || url), {
+    return makeIDB(cacheStore).get(makeKey(cacheStore, cacheKey || url), {
       fetch,
       maxAge: cacheAge
     });

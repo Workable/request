@@ -1,11 +1,11 @@
-import { get } from "@workablehr/idb";
+import makeIDB from "@workablehr/idb";
 import request, {
   withBgSync,
   withCache,
   request as baseRequest
 } from "./index";
 
-jest.mock("@workablehr/idb", () => () => ({ get: jest.fn() }));
+jest.mock("@workablehr/idb", () => jest.fn(() => ({ get: jest.fn() })));
 
 let timeoutId;
 const abortSpy = jest.fn();
@@ -137,11 +137,18 @@ describe("authClient", () => {
 });
 
 describe("cache", () => {
+  let get;
+
+  beforeEach(() => {
+    get = jest.fn();
+    makeIDB.mockImplementation(() => ({ get }));
+  });
+
   it("doesn't cache a request", async () => {
     const clearMock = mockResponseOnce();
     const withCacheRequest = withCache(baseRequest);
     await withCacheRequest("mockUrl");
-    expect(get).not.toBeCalled();
+    expect(makeIDB).not.toBeCalled();
     clearMock();
   });
 
@@ -155,6 +162,8 @@ describe("cache", () => {
       cacheKey: "test",
       param: "some-param"
     });
+    expect(makeIDB).toBeCalledTimes(1);
+    expect(makeIDB).toBeCalledWith("test-store");
     expect(get).toBeCalledTimes(1);
     expect(get).toBeCalledWith("test-store.test", {
       fetch: expect.any(Function)
@@ -172,6 +181,8 @@ describe("cache", () => {
       fetch: n => n,
       cacheAge: maxAge
     });
+    expect(makeIDB).toBeCalledTimes(1);
+    expect(makeIDB).toBeCalledWith("test-store");
     expect(get).toBeCalledTimes(1);
     expect(get).toBeCalledWith("test-store.mockUrl", {
       fetch: expect.any(Function),
@@ -188,6 +199,8 @@ describe("cache", () => {
       cacheStore: "test-store",
       fetch: n => n
     });
+    expect(makeIDB).toBeCalledTimes(1);
+    expect(makeIDB).toBeCalledWith("test-store");
     expect(get).toBeCalledTimes(1);
     expect(get).toBeCalledWith("test-store.mockUrl", {
       fetch: expect.any(Function),
