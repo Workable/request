@@ -1,9 +1,9 @@
 /**
- * @description Caches a request in the indexed DB.
+ * @description Extends the request method with post/put/patch/del methods.
  * @example
- * const request = withCache(basicRequest, 'workable');
- * const promise = request('url.test', {cache: true, cacheAge: 60, cacheKey: 'test'});
- * // caches the request for 60 seconds, in the namespace workable.test of the indexDB.
+ * const request = withShortcuts(basicRequest);
+ * const promise = request.post('url.test', data);
+ * // Creates a post request with the specific data in the paylaod of the body.
  */
 
 export default request => {
