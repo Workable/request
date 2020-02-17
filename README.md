@@ -58,7 +58,7 @@ XHRHandler.init(response).catch(error =>
 - withBgSync
 
 Middleware is an easy way to extend the basic functionality of the request.
-For example, if you would like to create a request that can be aborted, you could merely to:
+For example, if you would like to create a request that can be aborted, you could merely do:
 
 ```javascript
 import basicRequest, { withAbort } from "@workablehr/request";
@@ -91,7 +91,7 @@ Caches a request in the indexed DB.
 
 ### withShortcuts
 
-Caches a request in the indexed DB.
+Extends the request method with post/put/del methods. 
 
 ### withBgSync
 
@@ -101,7 +101,7 @@ Sends the request to the service worker in order to perform it when the device i
 
 ### Custom middleware
 
-A middleware is nothing more than a simple function that accepts request the method and returns the extended request.
+A middleware is nothing more than a simple function that accepts request method and returns the extended request.
 
 ```javascript
 import basicRequest from "@workablehr/request";
