@@ -2,7 +2,7 @@
   "name": "@workablehr/request",
   "description": "Request",
   "license": "UNLICENSED",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "module": "es/index.js",
   "keywords": [
