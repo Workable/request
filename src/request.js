@@ -6,7 +6,7 @@ import XHRHandler from "./xhrHandler";
  *
  * @return {object}          The parsed JSON from the request
  */
-const parseJSON = response => response.json();
+const parseJSON = response => response.json().catch(() => {});
 
 /**
  * Checks if a network request came back fine, and throws an error if not
