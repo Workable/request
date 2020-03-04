@@ -1,11 +1,16 @@
-const cjs = process.env.BABEL_ENV === "commonjs";
-
 module.exports = {
-  presets: [["@babel/env", { modules: false }]],
-  plugins: [
-    cjs && "@babel/transform-modules-commonjs",
-    ["@babel/transform-runtime", { useESModules: !cjs }]
-  ].filter(Boolean),
+  presets: [
+    [
+      "@babel/env",
+      {
+        useBuiltIns: "entry",
+        corejs: 3,
+        targets: {
+          browsers: ["last 2 versions", "safari >= 7"]
+        }
+      }
+    ]
+  ],
   env: {
     test: {
       presets: [
@@ -19,8 +24,7 @@ module.exports = {
             corejs: 3
           }
         ]
-      ],
-      plugins: ["@babel/transform-runtime"]
+      ]
     }
   }
 };

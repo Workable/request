@@ -7,13 +7,13 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "request.js",
     library: "@workablehr/request",
-    libraryTarget: "umd"
+    libraryTarget: "commonjs2"
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /[\\/]node_modules[\\/]/,
+        test: /\.m?js$/,
+        exclude: /\/node_modules\/.*/,
         use: {
           loader: "babel-loader"
         }
