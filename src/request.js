@@ -25,6 +25,12 @@ const checkStatus = response => {
   throw error;
 };
 
+const nativeFailure = (e) => {
+  e.status = -1;
+  e.statusText = e.name;
+  return e;
+};
+
 /**
  * Requests a URL, returning a promise
  *
@@ -55,5 +61,5 @@ export default (url, { method = "GET", headers = {}, ...options } = {}) => {
     throw new Error(error);
   }
 
-  return request.then(checkStatus).then(parseJSON);
+  return request.catch(nativeFailure).then(checkStatus).then(parseJSON);
 };
