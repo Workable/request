@@ -73,8 +73,8 @@ promise.abort();
 Or if you would like to use the shortcut request.post(), you could:
 
 ```javascript
-import basicRequest, { withAbort, withShortcut } from "@workablehr/request";
-const request = withShortcut(withAbort(basicRequest));
+import basicRequest, { withAbort, withShortcuts } from "@workablehr/request";
+const request = withShortcuts(withAbort(basicRequest));
 const promise = request.post("resource.com", { data });
 promise.abort();
 ```
