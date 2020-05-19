@@ -2,7 +2,7 @@
   "name": "@workablehr/request",
   "description": "Request",
   "license": "UNLICENSED",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "dist/request.js",
   "keywords": [
     "json:api",
