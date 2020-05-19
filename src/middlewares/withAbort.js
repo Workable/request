@@ -14,7 +14,7 @@ import getAbortController from "../getAbortController";
  * // aborts the request if not respond after 1000 ms.
  */
 
-export default request => (url, { timeoutMs = 5000, ...params }) => {
+export default request => (url, { timeoutMs = 50000, ...params }) => {
   const { signal, abort } = getAbortController();
 
   const timeoutId = setTimeout(abort, timeoutMs);
